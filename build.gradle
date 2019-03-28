@@ -1,6 +1,6 @@
 buildscript {
     ext.kotlin_version = '1.3.21'
-    ext.camel_version = "2.22.1"
+    ext.camel_version = "3.0.0-M1"
     repositories {
         mavenCentral()
     }
@@ -12,7 +12,7 @@ buildscript {
 apply plugin: 'kotlin'
 apply plugin: 'application'
 
-mainClassName = 'demo.HelloWorldKt'
+mainClassName = 'no.lau.MainApp'
 
 defaultTasks 'run'
 
@@ -23,6 +23,12 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.apache.camel:camel-core:$camel_version"
+    compile "org.apache.camel:camel-jetty:$camel_version"
+    compile "org.apache.camel:camel-aws:$camel_version"
+    compile "com.squareup.okhttp3:okhttp:3.14.0"
+    compile "org.slf4j:slf4j-simple:1.7.26"
+    compile "com.amazonaws:aws-java-sdk:1.11.496"
+    
     testCompile 'junit:junit:4.11'
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     testCompile "org.apache.camel:camel-test:$camel_version"
@@ -30,7 +36,7 @@ dependencies {
 }
 
 jar {
-    manifest { attributes 'Main-Class': 'demo.HelloWorldKt' }
+    manifest { attributes 'Main-Class': 'no.lau.MainApp' }
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
